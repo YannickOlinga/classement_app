@@ -1,0 +1,19 @@
+J’ai développé un organiseur de fichiers intelligent en Python !
+
+Un outil capable de trier automatiquement les fichiers d’un dossier par catégories (images, documents, vidéos, etc.) pour garder un espace propre et organisé.
+Ce projet m’a permis de travailler sur : 
+• pathlib → manipulation moderne des chemins fichiers 
+• shutil → déplacement sécurisé des fichiers 
+• json → configuration persistante (config.json) 
+• http.server → serveur HTTP local intégré pas besoin de framework comme (flask ou django)
+• webbrowser → ouverture automatique du navigateur 
+• urllib.parse → routing des endpoints API 
+• socket → détection dynamique d'un port libre
+• Une interface web locale
+• La gestion automatique des fichiers
+• Le multithreading et l’architecture modulaire
+Le plus intéressant est de réaliser un logiciel complet sans dépendances externes, uniquement avec les outils natifs de Python.
+
+Une belle expérience pour renforcer mes compétences en développement logiciel et en automatisation. 
+
+#Python #Automation #DeveloppementLogiciel #CleanCode #Programming
