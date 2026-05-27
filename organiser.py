@@ -1,8 +1,4 @@
 #!/usr/bin/env python3
-"""
-Organiseur de fichiers — classe automatiquement les fichiers d'un dossier
-dans des sous-dossiers par type (Images, Vidéos, Documents, etc.).
-"""
 
 from __future__ import annotations
 
@@ -108,7 +104,6 @@ def normaliser_extension(ext: str) -> str:
 
 
 def charger_config() -> tuple[dict[str, str], str]:
-    """Charge (extensions → dossier, nom du dossier « Autres »)."""
     if CONFIG_PATH.is_file():
         try:
             data = json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
@@ -236,23 +231,15 @@ def main() -> int:
     parser = argparse.ArgumentParser(
         description="Classe les fichiers d'un dossier dans des sous-dossiers par type.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog="""
-Exemples :
-  python3 organiser.py --gui              # Interface graphique
-  python3 organiser.py                    # Téléchargements (simulation)
-  python3 organiser.py --appliquer        # Téléchargements (réel)
-  python3 organiser.py ~/Desktop --appliquer
-        """,
     )
-    parser.add_argument("dossier", nargs="?", default=None, help="Dossier à organiser")
-    parser.add_argument("--gui", action="store_true", help="Lancer l'interface graphique")
-    parser.add_argument("--appliquer", action="store_true", help="Déplacer réellement les fichiers")
-    parser.add_argument("--fichiers-caches", action="store_true", help="Inclure les fichiers cachés")
+    parser.add_argument("dossier", nargs="?", default=None)
+    parser.add_argument("--gui", action="store_true")
+    parser.add_argument("--appliquer", action="store_true")
+    parser.add_argument("--fichiers-caches", action="store_true")
     args = parser.parse_args()
 
     if args.gui:
         from gui import lancer_interface
-
         lancer_interface()
         return 0
 
