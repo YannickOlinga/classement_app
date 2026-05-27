@@ -8,23 +8,14 @@ Aucune dépendance externe — uniquement la bibliothèque standard Python.
 
 ## Démarrage
 
-### Interface web (recommandé)
 
 ```bash
 python3 app.py
 ```
 
-### Interface graphique (desktop)
+### Demarrer le projet
 
 ```bash
-python3 gui.py
-```
-
-### Ligne de commande
-
-```bash
-# Simulation (sans déplacer les fichiers)
-python3 organiser.py
 
 # Appliquer le classement
 python3 organiser.py --appliquer
