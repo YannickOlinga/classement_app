@@ -1,0 +1,65 @@
+🚀 J'ai développé un organiseur de fichiers intelligent en Python — 100% sans dépendance externe !
+
+Fatigué de voir votre dossier Téléchargements ressembler à un champ de bataille ? 😅
+J'ai créé un outil qui classe automatiquement vos fichiers dans des sous-dossiers par type, en quelques secondes.
+
+---
+
+🛠️ Ce que j'ai construit :
+
+Un logiciel complet avec deux interfaces au choix :
+• Une interface web locale (accessible depuis le navigateur)
+• Une interface graphique desktop native
+• Une ligne de commande pour les power users
+
+---
+
+⚙️ Stack technique — 100% Python stdlib, zéro pip :
+
+🔹 argparse       → parsing des arguments CLI
+🔹 pathlib        → manipulation moderne des chemins fichiers
+🔹 shutil         → déplacement sécurisé des fichiers
+🔹 json           → configuration persistante (config.json)
+🔹 http.server    → serveur HTTP local intégré
+🔹 threading      → gestion de la concurrence (Lock + Timer)
+🔹 webbrowser     → ouverture automatique du navigateur
+🔹 urllib.parse   → routing des endpoints API
+🔹 socket         → détection dynamique d'un port libre
+🔹 tkinter / ttk  → interface graphique native multiplateforme
+🔹 collections    → defaultdict pour le groupement des données
+🔹 typing         → annotations de types pour un code robuste
+
+---
+
+✨ Fonctionnalités clés :
+
+✅ Mode simulation avant tout déplacement réel
+✅ Configuration personnalisable des catégories et extensions
+✅ Gestion des conflits de noms (renommage automatique)
+✅ Interface web responsive avec API REST locale
+✅ Sélecteur de dossier intégré dans le navigateur
+✅ Journal en temps réel des opérations
+✅ Compatible macOS, Linux et Windows
+
+---
+
+💡 Ce projet m'a permis de pratiquer :
+
+→ L'architecture modulaire en Python
+→ La création d'un serveur HTTP from scratch (sans Flask ni FastAPI)
+→ Le design d'une API REST avec http.server
+→ La programmation orientée objet avec tkinter
+→ La gestion de la concurrence avec threading
+→ Le développement d'une UI web en HTML/CSS/JS vanilla
+
+---
+
+La vraie satisfaction ? Livrer un outil fonctionnel, maintenable et portable,
+sans installer une seule dépendance externe. 🎯
+
+Parfois, la bibliothèque standard suffit largement — encore faut-il la connaître !
+
+---
+
+#Python #DeveloppementLogiciel #StdLib #OpenSource #Productivité
+#Automation #PythonDev #TKinter #HTTP #CleanCode #BackToBasics

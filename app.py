@@ -780,12 +780,29 @@ def find_free_port(start: int = 8765) -> int:
 
 
 def main() -> None:
-    port = find_free_port()
-    server = HTTPServer(("127.0.0.1", port), Handler)
-    url = f"http://127.0.0.1:{port}"   # IPv4 explicite — localhost peut résoudre en ::1
-    print(f"\n  Organiseur de fichiers  —  {url}")
-    print("  Appuyez sur Ctrl+C pour quitter.\n")
-    threading.Timer(0.4, lambda: webbrowser.open(url)).start()
+    import os
+    
+    # Mode web (0.0.0.0 pour accès distant) ou local (127.0.0.1)
+    is_web = os.getenv("WEB_MODE", "false").lower() in ("true", "1", "yes")
+    
+    if is_web:
+        # Mode web : écouter sur tous les interfaces (nécessaire pour Replit/PythonAnywhere/Render)
+        port = int(os.getenv("PORT", "8000"))
+        host = "0.0.0.0"
+        url = f"http://0.0.0.0:{port}"
+        print(f"\n  🌐 Organiseur de fichiers (WEB MODE)")
+        print(f"  Accessible sur : http://localhost:{port}/")
+        print("  Appuyez sur Ctrl+C pour quitter.\n")
+    else:
+        # Mode local : localhost uniquement
+        port = find_free_port()
+        host = "127.0.0.1"
+        url = f"http://127.0.0.1:{port}"
+        print(f"\n  Organiseur de fichiers  —  {url}")
+        print("  Appuyez sur Ctrl+C pour quitter.\n")
+        threading.Timer(0.4, lambda: webbrowser.open(url)).start()
+    
+    server = HTTPServer((host, port), Handler)
     try:
         server.serve_forever()
     except KeyboardInterrupt:
