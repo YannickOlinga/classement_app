@@ -1,4 +1,6 @@
 #!/bin/bash
-# Interface web locale — ouvre automatiquement le navigateur.
+# Interface graphique locale — ouvre l'interface tkinter.
 cd "$(dirname "$0")"
-exec python3 app.py "$@"
+exec /usr/bin/python3 gui.py "$@"
+
+

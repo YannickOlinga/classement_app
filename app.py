@@ -250,7 +250,8 @@ async function init() {
   try {
     const d = await apiGet('/api/config');
     applyConfig(d);
-    document.getElementById('folder').value = d.dossier_cible || '';
+    // Ne pas forcer le dossier - laisser l'utilisateur choisir
+    // document.getElementById('folder').value = d.dossier_cible || '';
   } catch(e) {
     logLine('Erreur chargement config : ' + e.message, 'le');
   }
@@ -630,7 +631,7 @@ class Handler(BaseHTTPRequestHandler):
         if path == "/api/config":
             cats, autres = get_state()
             payload = build_config_payload(cats, autres)
-            payload["dossier_cible"] = str(dossier_telechargements())
+            # Ne pas forcer le dossier téléchargements - laisser le frontend choisir
             self.send_json(payload)
             return
 
@@ -672,7 +673,7 @@ class Handler(BaseHTTPRequestHandler):
         cats, autres = get_state()
 
         try:
-            if path == "/api/executer":
+            if path == "/api/executer" or path == "/api/organiser":
                 dossier_str = data.get("dossier", "").strip()
                 if not dossier_str:
                     self.send_json({"error": "Dossier requis"}, 400)

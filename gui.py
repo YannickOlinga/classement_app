@@ -38,9 +38,12 @@ class OrganiseurApp(tk.Tk):
         self.categories, self.dossier_autres = charger_config()
         self.dossier_cible = tk.StringVar(value=str(dossier_telechargements()))
         self.inclure_caches = tk.BooleanVar(value=False)
+        self.message_dossier = tk.StringVar(value="")
 
         self._construire_ui()
         self._rafraichir_liste()
+        # Initialize the folder message after UI is built
+        self.after(100, self._initialiser_message_dossier)
 
     def _construire_ui(self) -> None:
         style = ttk.Style()
@@ -53,12 +56,22 @@ class OrganiseurApp(tk.Tk):
         frame_dossier = ttk.LabelFrame(self, text="Dossier à organiser")
         frame_dossier.pack(fill="x", **pad)
 
-        ttk.Entry(frame_dossier, textvariable=self.dossier_cible).pack(
+        entry_dossier = ttk.Entry(frame_dossier, textvariable=self.dossier_cible)
+        entry_dossier.pack(
             side="left", fill="x", expand=True, padx=(10, 6), pady=10
         )
+        entry_dossier.bind("<KeyRelease>", lambda e: self._update_message_dossier(self.dossier_cible.get()))
         ttk.Button(frame_dossier, text="Parcourir…", command=self._choisir_dossier).pack(
             side="right", padx=(0, 10), pady=10
         )
+        
+        self.label_message_dossier = ttk.Label(
+            frame_dossier, 
+            textvariable=self.message_dossier,
+            foreground="#0066cc",
+            font=("Menlo", 10)
+        )
+        self.label_message_dossier.pack(fill="x", padx=10, pady=(0, 10))
 
         # --- Catégories ---
         frame_cat = ttk.LabelFrame(self, text="Dossiers de destination (catégories)")
@@ -142,12 +155,39 @@ class OrganiseurApp(tk.Tk):
         self.journal.configure(state="disabled")
 
     def _choisir_dossier(self) -> None:
+        from pathlib import Path
+        
         chemin = filedialog.askdirectory(
             title="Choisir le dossier à organiser",
             initialdir=self.dossier_cible.get() or str(dossier_telechargements()),
         )
         if chemin:
-            self.dossier_cible.set(chemin)
+            path = Path(chemin)
+            if path.is_dir():
+                self.dossier_cible.set(chemin)
+                self._update_message_dossier(chemin)
+            else:
+                messagebox.showerror("Erreur", f"Le chemin sélectionné n'est pas un dossier valide :\n{chemin}")
+
+    def _initialiser_message_dossier(self) -> None:
+        self._update_message_dossier(self.dossier_cible.get())
+
+    def _update_message_dossier(self, chemin: str) -> None:
+        from pathlib import Path
+        
+        if not chemin:
+            self.message_dossier.set("")
+            return
+            
+        path = Path(chemin).expanduser()
+        if path.is_dir():
+            self.message_dossier.set(f"Dossier sélectionné : {chemin}")
+            if hasattr(self, 'label_message_dossier'):
+                self.label_message_dossier.configure(foreground="#0066cc")
+        else:
+            self.message_dossier.set(f"⚠️ Chemin invalide : {chemin}")
+            if hasattr(self, 'label_message_dossier'):
+                self.label_message_dossier.configure(foreground="#cc0000")
 
     def _selection(self) -> str | None:
         sel = self.arbre.selection()
