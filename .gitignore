@@ -2,3 +2,15 @@ __pycache__/
 *.pyc
 config.json
 .DS_Store
+.venv/
+.venv-*/
+node_modules/
+.env
+.env.local
+.env.*.local
+*.log
+*.tmp
+*.temp
+replit_logs/
+.devin/
+.kilo/
